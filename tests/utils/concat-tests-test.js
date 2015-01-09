@@ -7,9 +7,10 @@ var broccoli = require('broccoli');
 
 chai.use(require('chai-fs'));
 
-var readContent   = require('../helpers/file');
-var getES6Package = require('../../lib/get-es6-package');
-var concatES6     = require('../../lib/utils/concat-es6');
+var readContent         = require('../helpers/file');
+var getES6Package       = require('../../lib/get-es6-package');
+var concatES6           = require('../../lib/utils/concat-es6');
+var getVendoredPackages = require('../../lib/get-vendored-packages');
 
 var fixtureLibPath  = path.join(__dirname, '../fixtures/packages/ember-metal/lib');
 var fixtureTestPath = path.join(__dirname, '../fixtures/packages/ember-metal/tests');
@@ -38,7 +39,8 @@ describe('concat-es6', function() {
       derequire: false,
       includeLoader: true,
       inputFiles: ['**/*.js'],
-      destFile: '/ember-tests.js'
+      destFile: '/ember-tests.js',
+      vendoredPackages: getVendoredPackages()
     });
 
     builder = new broccoli.Builder(compiledTests);
